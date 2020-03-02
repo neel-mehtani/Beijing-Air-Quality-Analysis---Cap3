@@ -4,7 +4,7 @@
 
 Air pollution in urban environments has risen steadily in the last several decades. As a growing and urgent public health concern, cities and environmental agencies have been exploring methods to forecast future air pollution, hoping to enact policies and provide incentives and services to benefit their citizenry. Much research is being conducted in environmental science to generate deterministic models of air pollutant behavior; however, this is both complex, as the underlying molecular interactions in the atmosphere need to be simulated, and often inaccurate. As a result, with greater computing power in the twenty-first century, using machine learning methods for forecasting air pollution has become more popular. This study investigates the use of the LSTM recurrent neural network (LSTM-RNN) as a framework for forecasting in the future, based on time series data of pollution and meteorological information in Beijing. Due to the sequence dependencies associated with large-scale and longer time series datasets, RNNs, and in particular LSTM models, are well-suited. To support the investigation of LSTM models for time series analysis, various supervised learning models like Random Forests/ExtraTreeRegressors are also implemented to test their predictive ability. 
 
-Our results show that the LSTM framework produces equivalent accuracy when predicting future timesteps compared to the baseline support vector regression for a single timestep. Using our LSTM framework, we can now extend the prediction from a single timestep out to 5 to 10 hours into the future. This is promising in the quest for forecasting urban air quality and leveraging that insight to enact beneficial policy
+The results show that the LSTM framework produces insufficient accuracy when predicting future timesteps compared to the baseline supervised learning regression models for a single timestep, which seem to perform well when handling different feature dimensions of input/output. However, by using LSTM frameworks when implemented in correct networks, we can extend the prediction from a various different time lags to various timsteps into the future. This is promising in the quest for forecasting urban air quality and leveraging that insight to enact beneficially for the public. 
 
 ## Dataset
 
@@ -57,17 +57,24 @@ The intial approach to the problem is to utilize common supervised learning mode
 
 The ExtraTreeRegressor package is used to train the mutlivarite to multivariate experiment, while GradientBoostingRegressor and RandomForestRegressor models were used to deal with the univariate output scenario. Each model was trained with and without feature selection, and hyperparameters were tuned for using GridSearchCV. The results are summarized below. 
 
+Based on these results, the RandomForestRegressor model (without feature engineering/selection) is chosen for prediction due to the lowest test RMSE. Although this RMSE is representative of a shorter time scale, we deicde to use this to forecast the air quality for the entirety of 2017. GridSearchCV provides the following best fit hyperparameters: 
+n_estimators = 100, max_depth = 140, max_features = 5, min_samples_leaf = 3. Below, we see that the forecasting ability of the model closely approximates the true trend for 2017. 
+
 ## LSTM Neural Network Time Series Prediction 
+
+LSTMs take as inputs not only the current input, but also historic data points recorded, essentially using the output at time t − 1 as an input to current time t, along with the new input at time t. Given this, the network effectively has ’memory,’ unlike feedforward networks, given the memory allocated to errors stored in gated cells. This characteristic is important in discerning historical patterns in the sequences themselves, and not just the outputs. Because air pollution varies temporally, the best predictor of future air pollution is previous air pollution over long time periods.  A simple RNN is overlooked since it would have had poorer predictive accuracy and computational bottlenecks, since the data being trained on includes several historical samples collected through different timesteps. In this case, we use the univariate feature of AQI to predict future AQIs before we consider how historical weather and pollutant concentration sequences can be used as features to forecast AQIs. 
+
+In this scenario, a simple LSTM was constructed and experimented with. The LSTM models implemented in this project utilize the 'adam' optimizer, 'mse' loss functions, 'tanh' activation, 128 neuron LSTM layer(s), and hidden layers of different sizes. In order to use 'tanh' in this scenario, values must be normalized to a 0, 1 range for appropriate implementation. In general, this activation function yielded lower errors than 'relu'. Fine tuning the LSTM model requires working around the time lag that the model is trained on, the prediction time period, and epoch & batch sizes for training. 
+
+Below is a summary of the RMSE scores for some of the training configurations simulated. 
+
 
 ## Future Scope 
 
-LSTM models are 
+LSTM models are quite complicated in their training and require a proper analysis of their network architecture to accurately predict time series sequences. To expand on the results of this investigation, I would devote more time to do the following when building the LSTM Neural Network:
 
-
-
-
-
-
-
-
-
+- train model on more historical points/use hourly data to predict hours ahead rather than days.
+- find the optimal # of hidden layers and LSTM layers that can yield in high predicitve results. 
+- determine the batch/epoch train limit that yields in best results. 
+- determine the time lag that trains the LSTM the best. 
+- implement the above while taking historical sequence data of weather and pollutant features (multivariate LSTM), which might lend itself to using a encoder - decoder architecture. 
