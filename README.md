@@ -34,7 +34,11 @@ AQI indices are categorized into various air safety brackets, representative of 
 
 <p align="center">
 <img src = "aqi_cat_table.png" height="300">
-
+  
+Based on these definitions, we can pull up metrics on the frequency of various types of pollution days. 
+ 
+ 
+Observation of the AQI distributions over the years. Although the distrubutions vary slightly in their ranges, the IQR is centered around (100, 200), which falls in the USG category and below, with a median AQI ~ 140 throughout the years. 
 <img src = "Screen Shot 2020-01-09 at 4.17.59 PM.png">
 
 Depicted below is the plot of the AQI fluctuation over the 4 year span covered by the Beijing dataset. The left part of the graph (green) represents the portion of the dataset that will be trained upon in following steps while the right hand side (blue) represents the trend for 2017, which is what the models will attempt to reproduce. 
@@ -59,6 +63,18 @@ The intial approach to the problem is to utilize common supervised learning mode
 
 The ExtraTreeRegressor package is used to train the mutlivarite to multivariate experiment, while GradientBoostingRegressor and RandomForestRegressor models were used to deal with the univariate output scenario. Each model was trained with and without feature selection, and hyperparameters were tuned for using GridSearchCV. The results are summarized below. 
 
+
+| Model Config.  | Feature Engineering?  | Featurization | RMSE |
+| ------------- |-------------| -------- | :--------: |
+| ExtraTree | No | Multi2Multi | 32.79 |
+| ExtraTree | Yes | Multi2Multi | 33.09 |
+| RandomForest | No | Multi2Uni | 25.63 |
+| RandomForest | Yes | Multi2Uni | 26.086 |
+| GradientBoosting| No | Multi2Uni | 26.479 |
+| Gradient Boosting | Yes | Multi2Uni | 26.11 |
+
+Baseline RMSE: 72.37
+
 Based on these results, the RandomForestRegressor model (without feature engineering/selection) is chosen for prediction due to the lowest test RMSE. Although this RMSE is representative of a shorter time scale, we deicde to use this to forecast the air quality for the entirety of 2017. GridSearchCV provides the following best fit hyperparameters: 
 n_estimators = 100, max_depth = 140, max_features = 5, min_samples_leaf = 3. Below, we see that the forecasting ability of the model closely approximates the true trend for 2017. 
 
@@ -81,6 +97,16 @@ Below is a summary of the RMSE scores for some of the training configurations si
 | 1 LSTM 3 Hidden | 5 days | 30 | 67.15|
 | 2 LSTM 2 Hidden | 5 days | 30 | 67.38|
 | 2 LSTM 3 Hidden | 5 days | 30 | 67.29|
+
+Baseline Model RMSE: 72.37.
+
+Although the results do not show any strong predictive ability for the models, if one were to be manipulated further, we would go for training a model on a 5 day time lag for predicting the following month ahead. 
+
+## Forecast Result
+
+Based on this preliminary investigation, the best performing model does happen to be the RandomForestRegressor. Its forecast ability for the 2017 year is shown below. 
+
+<p align="center">
 
 ## Future Scope 
 
