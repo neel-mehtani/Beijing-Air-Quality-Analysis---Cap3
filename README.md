@@ -64,10 +64,21 @@ n_estimators = 100, max_depth = 140, max_features = 5, min_samples_leaf = 3. Bel
 
 LSTMs take as inputs not only the current input, but also historic data points recorded, essentially using the output at time t − 1 as an input to current time t, along with the new input at time t. Given this, the network effectively has ’memory,’ unlike feedforward networks, given the memory allocated to errors stored in gated cells. This characteristic is important in discerning historical patterns in the sequences themselves, and not just the outputs. Because air pollution varies temporally, the best predictor of future air pollution is previous air pollution over long time periods.  A simple RNN is overlooked since it would have had poorer predictive accuracy and computational bottlenecks, since the data being trained on includes several historical samples collected through different timesteps. In this case, we use the univariate feature of AQI to predict future AQIs before we consider how historical weather and pollutant concentration sequences can be used as features to forecast AQIs. 
 
-In this scenario, a simple LSTM was constructed and experimented with. The LSTM models implemented in this project utilize the 'adam' optimizer, 'mse' loss functions, 'tanh' activation, 128 neuron LSTM layer(s), and hidden layers of different sizes. In order to use 'tanh' in this scenario, values must be normalized to a 0, 1 range for appropriate implementation. In general, this activation function yielded lower errors than 'relu'. Fine tuning the LSTM model requires working around the time lag that the model is trained on, the prediction time period, and epoch & batch sizes for training. 
+In this scenario, a simple LSTM was constructed and experimented with. The LSTM models implemented in this project utilize the 'adam' optimizer, 'mse' loss functions, 'tanh' activation, 128 neuron LSTM layer(s), and hidden layers of different sizes. In order to use 'tanh' in this scenario, values must be normalized to a 0, 1 range for appropriate implementation. In general, this activation function yielded lower errors than 'relu'. Fine tuning the LSTM model requires working around the time lag that the model is trained on, the prediction time period, and epoch & batch sizes for training. Time lags of [1, 3, 5, 7, 10, 15, 20, 30] days were test on 15 & 30 day future time periods. 
 
 Below is a summary of the RMSE scores for some of the training configurations simulated. 
 
+
+| Model Config.  | Time Lag  | Future Timestep | RMSE |
+| ------------- |-------------| -------- | :--------: |
+| 1 LSTM 2 Hidden | 3 days | 15 | 71.02|
+| 1 LSTM 3 Hidden | 3 days | 15 | 71.08|
+| 2 LSTM 2 Hidden | 3 days | 15 | 70.68|
+| 2 LSTM 3 Hidden | 3 days | 15 | 70.53|
+| 1 LSTM 2 Hidden | 5 days | 30 | 67.61|
+| 1 LSTM 3 Hidden | 5 days | 30 | 67.15|
+| 2 LSTM 2 Hidden | 5 days | 30 | 67.38|
+| 2 LSTM 3 Hidden | 5 days | 30 | 67.29|
 
 ## Future Scope 
 
