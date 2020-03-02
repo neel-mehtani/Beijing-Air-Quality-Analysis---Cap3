@@ -26,7 +26,7 @@ Finally, the time steps of data to be used in the analysis must be determined fo
 
 ## EDA
 
-<img src = "aqi_cat_table.png">
+<img src = "aqi_cat_table.png" height="100">
 
 <img src = "beijing_ts.png" width="500" height="200">
 
