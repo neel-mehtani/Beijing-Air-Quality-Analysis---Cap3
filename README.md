@@ -4,6 +4,8 @@
 
 Air pollution in urban environments has risen steadily in the last several decades. As a growing and urgent public health concern, cities and environmental agencies have been exploring methods to forecast future air pollution, hoping to enact policies and provide incentives and services to benefit their citizenry. Much research is being conducted in environmental science to generate deterministic models of air pollutant behavior; however, this is both complex, as the underlying molecular interactions in the atmosphere need to be simulated, and often inaccurate. As a result, with greater computing power in the twenty-first century, using machine learning methods for forecasting air pollution has become more popular. This study investigates the use of the LSTM recurrent neural network (LSTM-RNN) as a framework for forecasting in the future, based on time series data of pollution and meteorological information in Beijing. Due to the sequence dependencies associated with large-scale and longer time series datasets, RNNs, and in particular LSTM models, are well-suited. To support the investigation of LSTM models for time series analysis, various supervised learning models like Random Forests/ExtraTreeRegressors are also implemented to test their predictive ability. 
 
+<img src = "lstm_mech.png">
+
 The results show that the LSTM framework produces insufficient accuracy when predicting future timesteps compared to the baseline supervised learning regression models for a single timestep, which seem to perform well when handling different feature dimensions of input/output. However, by using LSTM frameworks when implemented in correct networks, we can extend the prediction from a various different time lags to various timsteps into the future. This is promising in the quest for forecasting urban air quality and leveraging that insight to enact beneficially for the public. 
 
 ## Dataset
@@ -36,7 +38,9 @@ AQI indices are categorized into various air safety brackets, representative of 
 <img src = "aqi_cat_table.png" height="300">
   
 Based on these definitions, we can pull up metrics on the frequency of various types of pollution days. 
- 
+
+<p align="center">
+<img src = "pollution_counts.png" height="300">
  
 Observation of the AQI distributions over the years. Although the distrubutions vary slightly in their ranges, the IQR is centered around (100, 200), which falls in the USG category and below, with a median AQI ~ 140 throughout the years. 
 <img src = "Screen Shot 2020-01-09 at 4.17.59 PM.png">
@@ -107,6 +111,7 @@ Although the results do not show any strong predictive ability for the models, i
 Based on this preliminary investigation, the best performing model does happen to be the RandomForestRegressor. Its forecast ability for the 2017 year is shown below. 
 
 <p align="center">
+<img src = "supervised_ts_forecast.png" width="800" height="400">
 
 ## Future Scope 
 
