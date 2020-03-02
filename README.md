@@ -19,13 +19,9 @@ In its raw form, the data contains information on:
 
 In preprocessing the data, attention must be given to converting pollutant concentrations to appropriate units with which they can be handled (O3 & CO2: ppm, NO2 & SO2: ppb). The necessary conversions can be implemented using the following formula. 
 
-<img src = "unit_conv.png" width="200 height="200">
+<img src = "unit_conv.png">
                                                   
 Additionally, feature engineering for the str-type wind direction is required to enable its predictive value in AQI. For this, we implement dummy columns that take all 16 wind directions into account. 
-
-
-
-
 
 ## EDA
 
@@ -33,11 +29,9 @@ Additionally, feature engineering for the str-type wind direction is required to
 
 <img src = "beijing_ts.png" width="500" height="200">
 
-<img src = "Screen Shot 2020-01-09 at 4.17.59 PM.png" width="300" height="200">
-
+<img src = "Screen Shot 2020-01-09 at 4.17.59 PM.png">
 
 ## Supervised Learning Time Series Analysis
-
 
 ## LSTM Neural Network Time Series Prediction 
 
