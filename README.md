@@ -11,7 +11,7 @@ services to benefit their citizenry. Much research is being conducted in environ
 
 
 
-<img src= "Screen Shot 2020-01-09 at 4.17.59 PM.png" width="500" height="200">
+<img src= "Screen Shot 2020-01-09 at 4.17.59 PM.png" width="300" height="200">
 
 
 
