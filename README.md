@@ -17,6 +17,11 @@ In its raw form, the data contains information on:
 - 6 atmospheric pollutants: CO, NO2, SO2, O3, PM2.5, and PM10 (recorded as ug/m3).
 - 6 meterological factors: TEMP, PRES (pressure), DEWP (dewpoint), RAIN, WSPM (Wind Speed m/s), and Wind Direction (16 angular types). 
 
+In preprocessing the data, attention must be given to converting pollutant concentrations to appropriate units with which they can be handled (O3 & CO2: ppm, NO2 & SO2: ppb). The necessary conversions can be implemented using the following formula. 
+
+<img src = "unit_conv.png" width="200 height="200">
+                                                  
+Additionally, feature engineering for the str-type wind direction is required to enable its predictive value in AQI. For this, we implement dummy columns that take all 16 wind directions into account. 
 
 
 
@@ -26,11 +31,9 @@ In its raw form, the data contains information on:
 
 <img src = "aqi_cat_table.png" width="200 height="200">
 
-<img src= "beijing_ts.png" width="500" height="200">
+<img src = "beijing_ts.png" width="500" height="200">
 
-<img src= "Screen Shot 2020-01-09 at 4.17.59 PM.png" width="300" height="200">
-
-"aqi_cat_table.png"
+<img src = "Screen Shot 2020-01-09 at 4.17.59 PM.png" width="300" height="200">
 
 
 ## Supervised Learning Time Series Analysis
