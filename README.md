@@ -28,24 +28,40 @@ Finally, the time steps of data to be used in the analysis must be determined fo
 
 For this investigation, the intial 3 years of data are used for training (2013-16), while data from the last year (2017) is used as a hold out set to examine how different time series predictor models perform. 
 
-## EDA
+## Exploratory Data Analysis
+
+AQI indices are categorized into various air safety brackets, representative of various degrees of pollution. 
 
 <img src = "aqi_cat_table.png" height="300">
 
-<img src = "beijing_ts.png" width="500" height="200">
-
 <img src = "Screen Shot 2020-01-09 at 4.17.59 PM.png">
 
+Depicted below is the plot of the AQI fluctuation over the 4 year span covered by the Beijing dataset. The left part of the graph (green) represents the portion of the dataset that will be trained upon in following steps while the right hand side (blue) represents the trend for 2017, which is what the models will attempt to reproduce. 
+
+Mean AQI: 138.6 (USG: Unhealthy for Sensitive Groups)
+
+Global Maximum: 474.134663 (2015-12-01)
+
+Global Minimum: 27.894771 (2014-10-12)	
+
+On a surface level, a moving-average is plotted to identify/observe any prevalent trends in the AQI fluctuation in Beijing using rolling window splices of 30 days at a time. Although this plotted line does illustrate upward spikes in-and-around the winter seasons (Nov - Feb), there is no clear cut trend that can be discerned from the graph. This is corroborated by the inconclusive graphs of the trend-seasonal-residual decomposition that ARIMA packages provides. 
+
+<img src = "beijing_ts.png" width="500" height="200">
 
 ## Supervised Learning Time Series Analysis
 
+The intial approach to the problem is to utilize common supervised learning models for forecasting future air quality levels in Beijing. There are 2 ways this can be approached using weather and pollutant data: 
 
+- Multivariate Input to Multivariate Ouput: Train predictor variables to compute PM2.5, PM10, and O3 concentrations in order to formalize a predicted AQI level as these concentrations, and in turn AQI, are influenced by the training features
+- Multivariate Input to Univariate Output: Train predictor variables to directly compute AQI levels at specific time points. 
+
+The ExtraTreeRegressor package is used to train the mutlivarite to multivariate experiment, while GradientBoostingRegressor and RandomForestRegressor models were used to deal with the univariate output scenario. Each model was trained with and without feature selection, and hyperparameters were tuned for using GridSearchCV. The results are summarized below. 
 
 ## LSTM Neural Network Time Series Prediction 
 
-
-
 ## Future Scope 
+
+LSTM models are 
 
 
 
