@@ -48,7 +48,7 @@ Global Minimum: 27.894771 (2014-10-12)
 On a surface level, a moving-average is plotted to identify/observe any prevalent trends in the AQI fluctuation in Beijing using rolling window splices of 30 days at a time. Although this plotted line does illustrate upward spikes in-and-around the winter seasons (Nov - Feb), there is no clear cut trend that can be discerned from the graph. This is corroborated by the inconclusive graphs of the trend-seasonal-residual decomposition that ARIMA packages provides. 
 
 <p align="center">
-<img src = "beijing_ts.png" width="500" height="400">
+<img src = "beijing_ts.png" width="800" height="400">
 
 ## Supervised Learning Time Series Analysis
 
